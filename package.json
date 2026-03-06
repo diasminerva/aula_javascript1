@@ -9,8 +9,17 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "readline-sync": "^1.4.10"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diasminerva/aula_javascript1.git"
+  },
+  "bugs": {
+    "url": "https://github.com/diasminerva/aula_javascript1/issues"
+  },
+  "homepage": "https://github.com/diasminerva/aula_javascript1#readme"
 }
