@@ -1,11 +1,20 @@
-import readlinesync = require("readline-sync");
-import { colors } from "./src/util/Colors";
+import readlinesync = require('readline-sync');
+
+import { ProdutoController } from "./src/controller/ProdutoController";
+import { ProdutoEletronico } from "./src/util/model/ProdutoEletronico";
 
 export function main() {
+
+    let produtos: ProdutoController = new ProdutoController();
+
     let opcao: number;
+    let id: number;
+    let preco: number;
+    let nome: string;
+    let marca: string;
 
     while (true) {
-        console.log(colors.bg.black, colors.fg.blue);
+
         console.log("*****************************************************");
         console.log("                                                     ");
         console.log("              LIVRARIA DO DESENVOLVEDOR              ");
@@ -20,38 +29,71 @@ export function main() {
         console.log("            6 - Sair                                 ");
         console.log("                                                     ");
         console.log("*****************************************************");
-        console.log("                                                     ", colors.reset);
 
-        opcao = readlinesync.questionInt("Entre com a opcao desejada: ");
-
-        if (opcao === 6) {
-            console.log(colors.fg.green, "\nLivraria do Desenvolvedor - O conhecimento transforma!");
-            console.log("Sobre a Desenvolvedora: Minerva Almeida Dias");
-            console.log("Projeto Generation Brasil\n", colors.reset);
-            process.exit(0);
-        }
+        opcao = readlinesync.questionInt("\nEntre com a opcao desejada: ");
 
         switch (opcao) {
+
             case 1:
-                console.log(colors.fg.white, "\n\nCadastrar Livro\n\n", colors.reset);
+                console.log("\nCadastrar Livro\n");
+
+                id = readlinesync.questionInt("Digite o ID do Livro: ");
+                nome = readlinesync.question("Digite o Nome do Livro: ");
+                preco = readlinesync.questionFloat("Digite o Preco do Livro: ");
+                marca = readlinesync.question("Digite o Autor do Livro: ");
+
+                produtos.cadastrar(new ProdutoEletronico(id, nome, preco, marca));
+
                 break;
+
             case 2:
-                console.log(colors.fg.white, "\n\nListar todos os Livros\n\n", colors.reset);
+                console.log("\nListar todos os Livros\n");
+
+                produtos.listarTodos();
+
                 break;
+
             case 3:
-                console.log(colors.fg.white, "\n\nBuscar Livro por ID\n\n", colors.reset);
+                console.log("\nBuscar Livro por ID\n");
+
+                id = readlinesync.questionInt("Digite o ID do Livro: ");
+
+                produtos.procurarPorId(id);
+
                 break;
+
             case 4:
-                console.log(colors.fg.white, "\n\nAtualizar Dados do Livro\n\n", colors.reset);
+                console.log("\nAtualizar Dados do Livro\n");
+
+                id = readlinesync.questionInt("Digite o ID do Livro: ");
+                nome = readlinesync.question("Digite o Nome do Livro: ");
+                preco = readlinesync.questionFloat("Digite o Preco do Livro: ");
+                marca = readlinesync.question("Digite o Autor do Livro: ");
+
+                produtos.atualizar(new ProdutoEletronico(id, nome, preco, marca));
+
                 break;
+
             case 5:
-                console.log(colors.fg.white, "\n\nApagar Livro\n\n", colors.reset);
+                console.log("\nApagar Livro\n");
+
+                id = readlinesync.questionInt("Digite o ID do Livro: ");
+
+                produtos.deletar(id);
+
                 break;
+
+            case 6:
+                console.log("\nLIVRARIA DO DESENVOLVEDOR - Sistema encerrado!");
+                process.exit(0);
+
             default:
-                console.log(colors.fg.red, "\nOpção Inválida!\n", colors.reset);
-                break;
+                console.log("\nOpcao invalida!");
+
         }
+
     }
+
 }
 
 main();
